@@ -30,13 +30,17 @@ public:
         //Make pixels in the stencil buffer be set to 1 when the stencil test passes  
         glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);  
         //Set all of the pixels below to be 1 in the stencil buffer...  
-    }  
-    
+    }
+	
+		void endDrawingStencil ()
+		{
+			glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE); //Enable drawing colors to the screen
+			glDepthMask(GL_TRUE); //Eable drawing to depth buffer
+		}
+		
     //switch from drawing stencil to scene to be masked  
     void beginUsingStencil() {  
-        glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE); //Enable drawing colors to the screen
-        glDepthMask(GL_TRUE); //Eable drawing to depth buffer
-        //Make the stencil test pass only when the pixel is 1 in the stencil buffer  
+				//Make the stencil test pass only when the pixel is 1 in the stencil buffer
         glStencilFunc(GL_EQUAL, 1, 1);
         glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP); //Make the stencil buffer not change  
         //Draw all pixels where the stencil buffer is 1...  
